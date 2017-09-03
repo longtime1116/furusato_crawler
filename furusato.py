@@ -26,10 +26,12 @@ def parse_url(url):
         content = browser.find_element_by_class_name('cart_item_detail').text.replace(u",", u".").replace(u'容量', u'').replace(u'\n', u' ')
 
     except:
-        if not title or not price or not content:
-            print("title, price or content is not found")
-            print("    url: " + url)
+        if not title or not price:
+            print("title or price is not found url: " + url)
             return None
+
+        if not content:
+            content = ""
 
     info = {}
     info["title"] = title

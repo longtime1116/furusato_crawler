@@ -1,0 +1,23 @@
+title or price is not found url: https://www.furusato-tax.jp/japan/prefecture/item_detail/46215/372035
+U042 奥州牛サーロインステーキ2枚セット
+B003 常陸牛リブロースステーキ【285pt】
+Traceback (most recent call last):
+  File "furusato.py", line 89, in <module>
+    url_info = parse_url(url)
+  File "furusato.py", line 13, in parse_url
+    browser.get(url)
+  File "/Library/Python/2.7/site-packages/selenium/webdriver/remote/webdriver.py", line 248, in get
+    self.execute(Command.GET, {'url': url})
+  File "/Library/Python/2.7/site-packages/selenium/webdriver/remote/webdriver.py", line 236, in execute
+    self.error_handler.check_response(response)
+  File "/Library/Python/2.7/site-packages/selenium/webdriver/remote/errorhandler.py", line 192, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: timeout: cannot determine loading status
+from timeout: Timed out receiving message from renderer: -264.938
+  (Session info: chrome=60.0.3112.113)
+  (Driver info: chromedriver=2.24.417412 (ac882d3ce7c0d99292439bf3405780058fcca0a6),platform=Mac OS X 10.12.2 x86_64)
+
+
+real	153m19.523s
+user	13m8.215s
+sys	4m26.370s
