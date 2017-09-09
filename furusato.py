@@ -1,13 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from collections import OrderedDict
+from datetime import datetime
 import time
 import io
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-URL = 'https://www.furusato-tax.jp/search.html?q=%E3%82%B9%E3%83%86%E3%83%BC%E3%82%AD'
+#URL = 'https://www.furusato-tax.jp/search.html?q=%E3%82%B9%E3%83%86%E3%83%BC%E3%82%AD'
+URL = 'https://www.furusato-tax.jp/search.html?q=%E3%81%86%E3%81%AA%E3%81%8E%E3%80%80%E5%B0%BE'
 DRIVER_PATH = "/Users/Shumo/develop/furusato_crawler/chromedriver"
 #DRIVER_PATH = "/Users/Shumo/develop/furusato_crawler/phantomjs"
+SEARCH_WORD = u"うなぎ 尾"
+FILENAME = u"うなぎ"
+#SEARCH_WORD = u"ステーキ"
 
 def parse_url(url):
     browser.get(url)
@@ -42,13 +47,12 @@ def parse_url(url):
     return info
 
 
-SEARCH_WORD = u"ステーキ"
 if __name__ == '__main__':
     # ドライバー取得
     browser = webdriver.Chrome(DRIVER_PATH)
 #    browser = webdriver.PhantomJS(DRIVER_PATH)
     browser.implicitly_wait(5)
-    output_file = "result/%s.csv" % SEARCH_WORD
+    output_file = "result/%s_%s.csv" % (FILENAME, datetime.now().strftime('%Y%m%d%H%M'))
     with io.open(output_file, 'w', encoding="shift-jis") as f:
         try:
             f.write(u'title,price,content,url\n')
