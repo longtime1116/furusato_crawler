@@ -123,10 +123,11 @@ if __name__ == '__main__':
         while True:
             try:
                 next_page = browser.find_element_by_link_text('次 ＞')
+                next_url = next_page.get_attribute('href')
             except:
-                break
+                print("next page is not found")
+                next_url = None
 
-            next_url = next_page.get_attribute('href')
             titles = browser.find_elements_by_xpath('//*[@id="contents"]/div[6]/div/div/div/div/div[*]/div[2]/div/a')
             if len(titles) == 0:
                 titles = browser.find_elements_by_xpath('//*[@id="contents"]/div[5]/div/div/div/div/div[*]/div[2]/div/a')
@@ -134,24 +135,27 @@ if __name__ == '__main__':
             urls = []
             for title in titles:
                 urls.append(str(title.get_attribute('href')))
+                print(str(title.get_attribute('href')))
 
-            # 各お礼の品ページの情報を取得して url_dict に格納
-            url_dict = {}
-            for url in urls:
-                url_info = parse_url(url)
-                if url_info is None:
-                    continue
-                url_dict[url_info["title"]] = url_info
-                print(url_info["title"])
-
-            # する必要ないけどなんとなくソート(勉強のため)
-            sorted_url_dict = OrderedDict(sorted(url_dict.items(), key=lambda x: (x[1]['price']), reverse=False))
-
-            # ファイルにこのページの情報を書き出す
-            add_item_to_file(output_file, sorted_url_dict)
+#            # 各お礼の品ページの情報を取得して url_dict に格納
+#            url_dict = {}
+#            for url in urls:
+#                url_info = parse_url(url)
+#                if url_info is None:
+#                    continue
+#                url_dict[url_info["title"]] = url_info
+#                print(url_info["title"])
+#
+#            # する必要ないけどなんとなくソート(勉強のため)
+#            sorted_url_dict = OrderedDict(sorted(url_dict.items(), key=lambda x: (x[1]['price']), reverse=False))
+#
+#            # ファイルにこのページの情報を書き出す
+#            add_item_to_file(output_file, sorted_url_dict)
 
             # 次ページへ遷移
             print(str(n_page) + " page done")
+            if next_url is None:
+                break
             n_page += 1
             browser.get(next_url)
             time.sleep(1)
